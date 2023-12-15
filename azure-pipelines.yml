@@ -47,12 +47,15 @@ steps:
       projectKey: 'SarathSasi0251_sonartest'
       projectName: 'sonartest'
 
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: 'dotnet build $(buildConfiguration)'
+    
   - task: SonarCloudAnalyze@1
     displayName: 'Run SonarCloud analysis'
     continueOnError: true 
-  
-  - script: dotnet build --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
 
-  - task: SonarCloudAnalyze@1
+  - task: SonarCloudPublish@1
+    inputs:
+      pollingTimeoutSec: '300'
+
    
